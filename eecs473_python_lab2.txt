@@ -22,6 +22,12 @@ while 1:
 					ser.write(str.encode('C21BE'))
 				elif key == b'd':
 					ser.write(str.encode('C21RE'))
+				elif key == b'u':
+					ser.write(str.encode('C21UE'))
+				elif key == b'j':
+					ser.write(str.encode('C21JE'))
+				elif key == b'i':
+					ser.write(str.encode('C21IE'))
 			else:
 				command = "C25"+key.decode("utf-8")+"E"
 				print(command)
