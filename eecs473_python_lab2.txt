@@ -1,0 +1,28 @@
+import msvcrt
+import serial
+ser = serial.Serial('COM6', 38400)
+writeToLcd = False
+while 1:
+# Poll keyboard
+	if msvcrt.kbhit():
+		key = msvcrt.getch()
+		print(key)
+		if key == b'`':
+			writeToLcd = not writeToLcd
+			print(writeToLcd)
+		else:
+			if writeToLcd == False:
+				if key == b'w':
+					ser.write(str.encode('C21FE'))
+				elif key == b' ':
+					ser.write(str.encode('C21SE'))
+				elif key == b'a':
+					ser.write(str.encode('C21LE'))
+				elif key == b's':
+					ser.write(str.encode('C21BE'))
+				elif key == b'd':
+					ser.write(str.encode('C21RE'))
+			else:
+				command = "C25"+key.decode("utf-8")+"E"
+				print(command)
+				ser.write(str.encode('C25'+key.decode("utf-8")+'E'))
