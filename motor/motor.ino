@@ -92,6 +92,8 @@ public:
     command += 0x40;
   }
   sendCommand(false, command);
+  currentX = x;
+  currentY = y;
 }
 
   // write and move 
@@ -103,17 +105,24 @@ public:
   //writes at current pos
   void write(String message){
     for(char c: message){
-      sendCommand(true, c);
+      writeChar(c);
     }
   };
 
   //writes at current pos
   void writeChar(char message){
-      sendCommand(true, message);
+    if(currentX>15)
+    {
+      moveCursor(0,1);
+    }
+    currentX++;
+    sendCommand(true, message);
   };
 
   //clears screen
   void clear(){
+    currentX=0;
+    currentY=0;
     sendCommand(false, 1);
   };
 
